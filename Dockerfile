@@ -1,14 +1,13 @@
-FROM node:18
-
+FROM node:20-alpine
+ 
 WORKDIR /app
-
+ 
 COPY package*.json ./
-RUN npm install --frozen-lockfile
-
+RUN npm install
+ 
 COPY . .
-
-RUN npm run build
-
-EXPOSE 3001
-
-CMD ["npm", "run", "start:prod"]
+RUN npm run build --omit dev
+ 
+EXPOSE 3000
+ 
+CMD ["node", "dist/main"]
